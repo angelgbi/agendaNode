@@ -1,13 +1,13 @@
 const express = require('express')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
-// const cors = require('cors')
+const cors = require('cors')
 require('dotenv/config')
 
 // App
 const app = express()
 
-// app.use(cors)
+app.use(cors())
 app.use(morgan('tiny'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -21,7 +21,7 @@ mongoose.connect(
   },
   (e) => {
     if (e) {
-      console.log('Failed to connect to DB')
+      console.log('Failed to connect to DB', e)
     } else {
       console.log('Connected to DB')
     }
