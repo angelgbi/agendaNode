@@ -1,23 +1,16 @@
 const fileSys = require('fs')
 
-function writeJSONFile(filename, content) {
-  return new Promise((resolve, reject) => {
-    fileSys.writeFile(
-      filename,
-      JSON.stringify(content, null, 2),
-      'utf-8',
-      (err) => {
-        if (err) {
-          reject({
-            message: 'Sorry. Failed to save',
-            status: 500
-          })
-        } else {
-          resolve()
-        }
+async function writeJSONFile(filename, content) {
+  fileSys.writeFile(
+    filename,
+    JSON.stringify(content, null, 2),
+    'utf-8',
+    (err) => {
+      if (err) {
+        throw err
       }
-    )
-  })
+    }
+  )
 }
 
 const setId = (array) => {
@@ -28,17 +21,11 @@ const setId = (array) => {
   }
 }
 
-function getContactById(array, id) {
-  return new Promise((resolve, reject) => {
-    const contact = array.find((c) => c.id == id)
-    if (!contact) {
-      reject({
-        message: 'Wrong ID',
-        status: 404
-      })
-    }
-    resolve(contact)
-  })
+async function getContactById(array, id) {
+  const contact = array.find((c) => c.id == id)
+  if (!contact) {
+    throw new Error('Wrong ID')
+  } else return contact
 }
 
 module.exports = {
