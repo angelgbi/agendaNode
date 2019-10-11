@@ -44,8 +44,9 @@ router.post('/', async (req, res) => {
 
   try {
     const contactSaved = await contact.save()
+
     res.status(201).json({
-      message: `The contact '${contactSaved.name}' has been added`,
+      message: `The contact has been added`,
       content: contactSaved
     })
   } catch (err) {
@@ -96,7 +97,7 @@ router.delete('/:id', async (req, res) => {
     const removedContact = await ContactModel.remove({ _id: id })
 
     res.json({
-      message: `The contact '${removedContact.name}' has been deleted`
+      message: `The contact has been deleted`
     })
   } catch (err) {
     if (err.status) {
