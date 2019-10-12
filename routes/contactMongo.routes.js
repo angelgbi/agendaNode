@@ -77,7 +77,7 @@ router.put('/:id', async (req, res) => {
     )
 
     res.json({
-      message: `The contact '${updatedContact.name}' has been updated`,
+      message: `The contact has been updated`,
       content: updatedContact
     })
   } catch (err) {

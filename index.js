@@ -7,6 +7,8 @@ require('dotenv/config')
 // App
 const app = express()
 
+const port = process.env.PORT || 4000
+
 app.use(cors())
 app.use(morgan('tiny'))
 app.use(express.json())
@@ -28,4 +30,7 @@ mongoose.connect(
   }
 )
 
-app.listen('4000')
+app.listen(port, () => {
+  console.log("App listen on port: " + port);
+  
+})
