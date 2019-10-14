@@ -1,9 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const ContactModel = require('../models/contactMongo.model')
+const m = require('../helpers/middlewares')
 
 /* All contacts */
-router.get('/', async (req, res) => {
+router.get('/', m.checkAccess, async (req, res) => {
   try {
     const contacts = await ContactModel.find()
     res.json(contacts)
@@ -17,7 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 /* Get a contact by id */
-router.get('/:id', async (req, res) => {
+router.get('/:id', m.checkAccess, async (req, res) => {
   const id = req.params.id
 
   try {
@@ -33,7 +34,7 @@ router.get('/:id', async (req, res) => {
 })
 
 /* add a new contact */
-router.post('/', async (req, res) => {
+router.post('/', m.checkAccess, async (req, res) => {
   const contact = new ContactModel({
     name: req.body.name,
     nickname: req.body.nickname,
@@ -59,7 +60,7 @@ router.post('/', async (req, res) => {
 })
 
 /* Update a contact */
-router.put('/:id', async (req, res) => {
+router.put('/:id', m.checkAccess, async (req, res) => {
   const id = req.params.id
 
   try {
@@ -90,7 +91,7 @@ router.put('/:id', async (req, res) => {
 })
 
 /* Delete a contact */
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', m.checkAccess, async (req, res) => {
   const id = req.params.id
 
   try {
